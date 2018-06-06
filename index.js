@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   Animated,
   Text,
-  Slider,
+  Slider as RNSlider,
   NetInfo,
 } from 'react-native';
 import PropTypes from 'prop-types';
@@ -535,8 +535,8 @@ export default class VideoPlayer extends React.Component {
   };
 
   render() {
-    const videoWidth = Dimensions.get('window').width;
-    const videoHeight = videoWidth * (9 / 16);
+    const videoWidth = this.props.videoWidth || Dimensions.get('window').width;
+    const videoHeight = this.props.videoHeight || (videoWidth * (9 / 16));
     const centeredContentWidth = 60;
 
     const PlayIcon = this.props.playIcon;
@@ -545,6 +545,7 @@ export default class VideoPlayer extends React.Component {
     const FullscreenEnterIcon = this.props.fullscreenEnterIcon;
     const FullscreenExitIcon = this.props.fullscreenExitIcon;
     const ReplayIcon = this.props.replayIcon;
+    const Slider = this.props.renderSlider || RNSlider
 
     // Do not let the user override `ref`, `callback`, and `style`
     const {
